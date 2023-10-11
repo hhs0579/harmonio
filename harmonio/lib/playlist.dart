@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:harmonio/player.dart';
 import 'package:harmonio/song.dart';
-
 import 'color.dart';
 
 class playList extends StatelessWidget {
   playList({super.key});
   List<Song> playlist = [
     Song(
-        title: '하울의 움직이는 성',
-        artist: '히사이시 조',
-        albumArtUrl:
-            'https://image.bugsm.co.kr/album/images/200/80035/8003552.jpg?version=20190223130953.0',
-        audioUrl: 'http://www.usherin.co.kr/mp3/2022/Listening_Inter/TEST1/TEST1-set1-1-C.Accounting%20department(336p).mp3'),
-    // ... 다른 노래들
+      title: '인생의 회전목마',
+      artist: '히사이시 조',
+      albumArtUrl: 'assets/images/5.png',
+      audioUrl:
+          'http://www.usherin.co.kr/mp3/2022/Listening_Inter/TEST1/TEST1-set1-1-C.Accounting%20department(336p).mp3',
+    ),
   ];
-
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -69,10 +67,36 @@ class playList extends StatelessWidget {
                           itemCount: playlist.length,
                           itemBuilder: (context, index) {
                             return ListTile(
-                              leading:
-                                  Image.network(playlist[index].albumArtUrl),
-                              title: Text(playlist[index].title),
-                              subtitle: Text(playlist[index].artist),
+                              leading: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    '${playlist.length}',
+                                    style: TextStyle(
+                                        fontFamily: 'jal',
+                                        color: ColorList.primary,
+                                        fontSize: 28),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  Image.asset(playlist[index].albumArtUrl),
+                                ],
+                              ),
+                              title: Text(
+                                playlist[index].title,
+                                style: TextStyle(
+                                    fontFamily: 'jal',
+                                    color: ColorList.primary,
+                                    fontSize: 20),
+                              ),
+                              subtitle: Text(
+                                playlist[index].artist,
+                                style: TextStyle(
+                                    fontFamily: 'jal',
+                                    color: ColorList.primary,
+                                    fontSize: 14),
+                              ),
                               onTap: () {
                                 Navigator.push(
                                   context,
