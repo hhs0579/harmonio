@@ -9,10 +9,15 @@ class playList extends StatelessWidget {
     Song(
       title: '인생의 회전목마',
       artist: '히사이시 조',
-      albumArtUrl: 'assets/images/5.png',
+      albumArtUrl: 'assets/images/5.jpeg',
       audioUrl:
           'http://www.usherin.co.kr/mp3/2022/Listening_Inter/TEST1/TEST1-set1-1-C.Accounting%20department(336p).mp3',
     ),
+    Song(
+        title: 'Blueming',
+        artist: 'IU',
+        albumArtUrl: 'assets/images/6.webp',
+        audioUrl: 'https://dl.espressif.com/dl/audio/ff-16b-2c-44100hz.mp3')
   ];
   @override
   Widget build(BuildContext context) {
@@ -66,45 +71,76 @@ class playList extends StatelessWidget {
                         child: ListView.builder(
                           itemCount: playlist.length,
                           itemBuilder: (context, index) {
-                            return ListTile(
-                              leading: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text(
-                                    '${playlist.length}',
-                                    style: TextStyle(
-                                        fontFamily: 'jal',
-                                        color: ColorList.primary,
-                                        fontSize: 28),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Image.asset(playlist[index].albumArtUrl),
-                                ],
-                              ),
-                              title: Text(
-                                playlist[index].title,
-                                style: TextStyle(
-                                    fontFamily: 'jal',
-                                    color: ColorList.primary,
-                                    fontSize: 20),
-                              ),
-                              subtitle: Text(
-                                playlist[index].artist,
-                                style: TextStyle(
-                                    fontFamily: 'jal',
-                                    color: ColorList.primary,
-                                    fontSize: 14),
-                              ),
+                            return InkWell(
                               onTap: () {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => MusicPlayerScreen(
-                                          playlist: playlist)),
+                                    builder: (context) => MusicPlayerScreen(
+                                        playlist: playlist,
+                                        initialIndex: index),
+                                  ),
                                 );
                               },
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10.0),
+                                child: Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 50, // Width 조정
+                                      child: Center(
+                                        child: Text(
+                                          '${index + 1}',
+                                          style: TextStyle(
+                                              fontFamily: 'jal',
+                                              color: ColorList.primary,
+                                              fontSize: 28),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 70,
+                                      height: 75, // 원하는 높이
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: Image.asset(
+                                          playlist[index].albumArtUrl,
+                                          fit: BoxFit.cover,
+                                        ),
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      width: 20,
+                                    ),
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            playlist[index].title,
+                                            style: TextStyle(
+                                                fontFamily: 'jal',
+                                                color: ColorList.primary,
+                                                fontSize: 20),
+                                          ),
+                                          const SizedBox(
+                                            height: 3,
+                                          ),
+                                          Text(
+                                            playlist[index].artist,
+                                            style: TextStyle(
+                                                fontFamily: 'jal',
+                                                color: ColorList.primary,
+                                                fontSize: 14),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             );
                           },
                         )),
